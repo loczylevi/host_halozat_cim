@@ -1,0 +1,1 @@
+a halozat cimnél mindig 32 számankj kell lenni(kipotoljuk 0 -áéval hogy 32 szám leygen azután a hostot és hálozati cimet átalakitani decimálissá)

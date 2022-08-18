@@ -14,10 +14,10 @@
     <div class="container">
         <form>
             <fieldset>
-                <legend style="margin-top: 25px">Host/Hálozati Cím megfejtő <i>(Aplha version)</i></legend>
+                <legend style="margin-top: 25px">IP/Netmaszk Cím megfejtő <i>(Aplha version)</i></legend>
                 <!-- ip cimek bekérése itt kezdődik-->
                 <hr>
-                <legend style="margin-top: 25px">Légyszíves <strong>mindkét részt</strong> <i>(IP/Nemtmaszk)</i> <strong>töltsd ki mielött megnyomnád a "Számol"</strong> gombot!</legend>
+                <legend style="margin-top: 25px">Légyszíves <strong>mindkét részt</strong> <i>(IP/Nemtmaszk)</i> <strong>tölcsd ki mielött megnyomnád a "Számol"</strong> gombot!</legend>
                 <hr>
                 <br>
                 <br>
@@ -37,7 +37,7 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label class="col-form-label col-form-label-lg mt-4"
-                            for="inputLarge">-----------</label>
+                            for="inputLarge">----------------</label>
                             <input class="form-control form-control-lg" type="text"
                             placeholder="IP ide" id="ip2" spellcheck="false"
                             data-ms-editors="true">
@@ -48,7 +48,7 @@
 <div class="col-sm-1">
     <div class="form-group">
         <label class="col-form-label col-form-label-lg mt-4"
-        for="inputLarge">-----------</label>
+        for="inputLarge">----------------</label>
         <input class="form-control form-control-lg" type="text"
         placeholder="IP ide" id="ip3" spellcheck="false"
         data-ms-editors="true">
@@ -58,7 +58,7 @@
 <div class="col-sm-1">
     <div class="form-group">
         <label class="col-form-label col-form-label-lg mt-4"
-        for="inputLarge">-----------</label>
+        for="inputLarge">----------------</label>
         <input class="form-control form-control-lg" type="text"
         placeholder="IP ide" id="ip4" spellcheck="false"
         data-ms-editors="true">
@@ -79,7 +79,7 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label class="col-form-label col-form-label-lg mt-4"
-                            for="inputLarge">-----------</label>
+                            for="inputLarge">----------------</label>
                             <input class="form-control form-control-lg" type="text"
                             placeholder="maszk" id="maszk2" spellcheck="false"
                             data-ms-editors="true">
@@ -89,7 +89,7 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label class="col-form-label col-form-label-lg mt-4"
-                            for="inputLarge">-----------</label>
+                            for="inputLarge">----------------</label>
                             <input class="form-control form-control-lg" type="text"
                             placeholder="maszk" id="maszk3" spellcheck="false"
                             data-ms-editors="true">
@@ -99,7 +99,7 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label class="col-form-label col-form-label-lg mt-4"
-                            for="inputLarge">-----------</label>
+                            for="inputLarge">----------------</label>
                             <input class="form-control form-control-lg" type="text"
                             placeholder="maszk" id="maszk4" spellcheck="false"
                             data-ms-editors="true">
@@ -133,16 +133,36 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="alert alert-dismissible alert-primary">
-                                <strong>Hálózati cim: </strong>
+                                <strong>Hálózati cim binárisba: </strong>
                                 <a href="#" id="kimenet3" class="alert-link"></a>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="alert alert-dismissible alert-primary">
-                                <strong>Host cim: </strong>
+                                <strong>Host cim binárisba: </strong>
                                 <a href="#" id="kimenet4" class="alert-link"></a>
                             </div>
                         </div>
+
+                            <!--decimális host és hálozat cim-->
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="alert alert-dismissible alert-primary">
+                                    <strong>Hálózati cim decimálisba: </strong>
+                                    <a href="#" id="kimenet5" class="alert-link"></a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="alert alert-dismissible alert-primary">
+                                    <strong>Host cim decimálisba: </strong>
+                                    <a href="#" id="kimenet6" class="alert-link"></a>
+                                </div>
+                            </div>
+
+
+
+
                 </div>
             <hr>
             <div class="row">
@@ -168,7 +188,7 @@ pyscript.write('today', dt.date.today().strftime('%A %B %d, %Y'))
 #változok megadása
 ip_cim1 = Element("ip1"); ip_cim2 = Element("ip2"); ip_cim3 = Element("ip3"); ip_cim4 = Element("ip4"); message = Element("msg");
 netmaszk1 = Element("maszk1"); netmaszk2 = Element("maszk2"); netmaszk3 = Element("maszk3"); netmaszk4 = Element("maszk4");
-teljes_binaris_forma_ip = Element("kimenet1"); teljes_binaris_forma_netmaszk = Element("kimenet2"); halozat_cim = Element("kimenet3"); host_cim = Element("kimenet4");
+teljes_binaris_forma_ip = Element("kimenet1"); teljes_binaris_forma_netmaszk = Element("kimenet2"); halozat_cim = Element("kimenet3"); host_cim = Element("kimenet4"); halozat_cim_decimalis = Element("kimenet5"); host_cim_decimalis = Element("kimenet6");
 
 
 #txtA = Element("txtA"); txtB = Element("txtB"); txtC = Element("txtC"); message = Element("msg")
@@ -569,9 +589,257 @@ def solve(*args, **kwargs):
     #print(f"hostocska uwu: {host}")
     #print(f"halozatocska gg: {halozat}")
 
+    while len(halozat) != 32:
+        halozat = halozat + "0"
+
     halozat_cim.write(halozat)
+
+    while len(host) != 32:
+        host = host + "0"
+        
     host_cim.write(host)
 
+
+    #halozat_cim_decimalis.write(halozat)
+
+
+    #________________________________binárisbol decimálisba halozat cim negyedik________
+
+    szeletes0 = halozat[-8:]
+
+    d_128 = int(szeletes0[0]) * 128
+
+    d_64 = int(szeletes0[1]) * 64
+
+
+    d_32 = int(szeletes0[2]) * 32
+
+
+    d_16 = int(szeletes0[3]) * 16
+
+
+    d_8 = int(szeletes0[4]) * 8
+
+
+    d_4 = int(szeletes0[5]) * 4
+
+
+    d_2 = int(szeletes0[6]) * 2
+
+
+    d_1 = int(szeletes0[7]) * 1
+
+    ossz0 = d_128 + d_64 + d_32 + d_16 + d_8 + d_4 + d_2 + d_1
+
+    #__________________________________________-harmadik_________---decimálisba
+    szeletes1 = halozat[16:24] # 23
+
+    d1_128 = int(szeletes1[0]) * 128
+
+    d1_64 = int(szeletes1[1]) * 64
+
+
+    d1_32 = int(szeletes1[2]) * 32
+
+
+    d1_16 = int(szeletes1[3]) * 16
+
+
+    d1_8 = int(szeletes1[4]) * 8
+
+
+    d1_4 = int(szeletes1[5]) * 4
+
+
+    d1_2 = int(szeletes1[6]) * 2
+
+
+    d1_1 = int(szeletes1[7]) * 1
+
+    ossz1 = d1_128 + d1_64 + d1_32 + d1_16 + d1_8 + d1_4 + d1_2 + d1_1
+
+
+    #__________________________________________-nelso_________---decimálisba
+    szeletes3 = halozat[0:8] # 15
+
+    d3_128 = int(szeletes3[0]) * 128
+
+    d3_64 = int(szeletes3[1]) * 64
+
+
+    d3_32 = int(szeletes3[2]) * 32
+
+
+    d3_16 = int(szeletes3[3]) * 16
+
+
+    d3_8 = int(szeletes3[4]) * 8
+
+
+    d3_4 = int(szeletes3[5]) * 4
+
+
+    d3_2 = int(szeletes3[6]) * 2
+
+
+    d3_1 = int(szeletes3[7]) * 1
+
+    ossz2 = d3_128 + d3_64 + d3_32 + d3_16 + d3_8 + d3_4 + d3_2 + d3_1
+
+    #__________________________________________masodik_________---decimálisba
+    szeletes4 = halozat[8:16] # 15 # 8
+
+    d4_128 = int(szeletes4[0]) * 128
+
+    d4_64 = int(szeletes4[1]) * 64
+
+
+    d4_32 = int(szeletes4[2]) * 32
+
+
+    d4_16 = int(szeletes4[3]) * 16
+
+
+    d4_8 = int(szeletes4[4]) * 8
+
+
+    d4_4 = int(szeletes4[5]) * 4
+
+
+    d4_2 = int(szeletes4[6]) * 2
+
+
+    d4_1 = int(szeletes4[-7]) * 1
+
+    ossz3 = d4_128 + d4_64 + d4_32 + d4_16 + d4_8 + d4_4 + d4_2 + d4_1
+
+    #print(f"binárisbol decimálisba {ossz0}.{ossz1}.{ossz3}.{ossz2}")
+
+    # vissza forditás
+
+    halozat_dec = str(ossz2) +"."+ str(ossz3) +"."+ str(ossz1) + "." + str(ossz0)
+
+    halozat_cim_decimalis.write(halozat_dec)
+
+
+
+    #________________________________binárisbol decimálisba host cim negyedik________
+
+    szeletes7 = host[-8:]
+
+    d_128 = int(szeletes7[0]) * 128
+
+    d_64 = int(szeletes7[1]) * 64
+
+
+    d_32 = int(szeletes7[2]) * 32
+
+
+    d_16 = int(szeletes7[3]) * 16
+
+
+    d_8 = int(szeletes7[4]) * 8
+
+
+    d_4 = int(szeletes7[5]) * 4
+
+
+    d_2 = int(szeletes7[6]) * 2
+
+
+    d_1 = int(szeletes7[7]) * 1
+
+    ossz7 = d_128 + d_64 + d_32 + d_16 + d_8 + d_4 + d_2 + d_1
+
+    #__________________________________________-harmadik_________---decimálisba
+    szeletes6 = host[16:24] # 23
+
+    d1_128 = int(szeletes6[0]) * 128
+
+    d1_64 = int(szeletes6[1]) * 64
+
+
+    d1_32 = int(szeletes6[2]) * 32
+
+
+    d1_16 = int(szeletes6[3]) * 16
+
+
+    d1_8 = int(szeletes6[4]) * 8
+
+
+    d1_4 = int(szeletes6[5]) * 4
+
+
+    d1_2 = int(szeletes6[6]) * 2
+
+
+    d1_1 = int(szeletes6[7]) * 1
+
+    ossz6 = d1_128 + d1_64 + d1_32 + d1_16 + d1_8 + d1_4 + d1_2 + d1_1
+
+
+    #__________________________________________-nelso_________---decimálisba
+    szeletes4 = host[0:8] # 15
+
+    d3_128 = int(szeletes4[0]) * 128
+
+    d3_64 = int(szeletes4[1]) * 64
+
+
+    d3_32 = int(szeletes4[2]) * 32
+
+
+    d3_16 = int(szeletes4[3]) * 16
+
+
+    d3_8 = int(szeletes4[4]) * 8
+
+
+    d3_4 = int(szeletes4[5]) * 4
+
+
+    d3_2 = int(szeletes4[6]) * 2
+
+
+    d3_1 = int(szeletes4[7]) * 1
+
+    ossz4 = d3_128 + d3_64 + d3_32 + d3_16 + d3_8 + d3_4 + d3_2 + d3_1
+
+    #__________________________________________masodik_________---decimálisba
+    szeletes5 = host[8:16] # 15 # 8
+
+    d4_128 = int(szeletes5[0]) * 128
+
+    d4_64 = int(szeletes5[1]) * 64
+
+
+    d4_32 = int(szeletes5[2]) * 32
+
+
+    d4_16 = int(szeletes5[3]) * 16
+
+
+    d4_8 = int(szeletes5[4]) * 8
+
+
+    d4_4 = int(szeletes5[5]) * 4
+
+
+    d4_2 = int(szeletes5[6]) * 2
+
+
+    d4_1 = int(szeletes5[-7]) * 1
+
+    ossz5 = d4_128 + d4_64 + d4_32 + d4_16 + d4_8 + d4_4 + d4_2 + d4_1
+
+    #print(f"binárisbol decimálisba {ossz0}.{ossz1}.{ossz3}.{ossz2}")
+
+    # vissza forditás
+
+    host_dec = str(ossz4) +"."+ str(ossz5) +"."+ str(ossz6) + "." + str(ossz7)
+
+    host_cim_decimalis.write(host_dec)
 
 
 
